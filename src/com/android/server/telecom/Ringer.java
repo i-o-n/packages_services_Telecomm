@@ -97,8 +97,8 @@ public class Ringer {
 
     private static final long[] SIMPLE_VIBRATION_PATTERN = {
             0, // No delay before starting
-            1000, // How long to vibrate
-            1000, // How long to wait before vibrating again
+            800, // How long to vibrate
+            800, // How long to wait before vibrating again
     };
 
     private static final int[] SIMPLE_VIBRATION_AMPLITUDE = {
@@ -473,6 +473,13 @@ public class Ringer {
         Log.v(this, "Playing call-waiting tone.");
 
         stopRinging();
+
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.INCALL_FEEDBACK_VIBRATE, 0, UserHandle.USER_CURRENT) == 1) {
+            if (mVibrator.hasVibrator()) {
+                mVibrator.vibrate(VibrationEffect.get(VibrationEffect.EFFECT_THUD));
+            }
+        }
 
         mFlashOnCallWait = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.FLASHLIGHT_ON_CALL_WAITING, 0, UserHandle.USER_CURRENT) == 1;
