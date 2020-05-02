@@ -566,13 +566,6 @@ public class Ringer {
 
         stopRinging();
 
-        if (Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.INCALL_FEEDBACK_VIBRATE, 0, UserHandle.USER_CURRENT) == 1) {
-            if (mVibrator.hasVibrator()) {
-                mVibrator.vibrate(VibrationEffect.get(VibrationEffect.EFFECT_THUD));
-            }
-        }
-
         mFlashOnCallWait = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.FLASHLIGHT_ON_CALL_WAITING, 0, UserHandle.USER_CURRENT) == 1;
 
